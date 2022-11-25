@@ -1,0 +1,14 @@
+{
+  "name": "com.travisrfrench.graphing",
+  "displayName": "Graphing",
+  "version": "0.1.0",
+  "description": "A library for working with graphs, nodes and edges.",
+  "author": {
+    "name": "Travis R. French"
+  },
+  "homepage": "https://github.com/frenchtr/graphing",
+  "keywords": ["Graphing", "Graph", "Node", "Edge"],
+  "dependencies": {
+  },
+  "license": "See <LICENSE.md>"
+}
