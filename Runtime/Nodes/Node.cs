@@ -48,7 +48,22 @@ namespace TravisRFrench.Graphing.Nodes
 
         public IEnumerable<INode<TValue>> GetNeighbors()
         {
-            return this.Edges.Select(e => e.Second);
+            var edges = this.Edges.Where(e => e.First == this || e.Second == this);
+            var neighbors = new List<INode<TValue>>();
+
+            foreach (var edge in edges)
+            {
+                var neighbor = edge.First == this ? edge.Second : edge.First;
+
+                if (neighbors.Any(n => n == neighbor))
+                {
+                    continue;
+                }
+                
+                neighbors.Add(neighbor);
+            }
+
+            return neighbors;
         }
     }
 }
