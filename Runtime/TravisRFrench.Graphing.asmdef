@@ -1,6 +1,6 @@
 {
-    "name": "TravisRFrench.Graphing",
-    "rootNamespace": "TravisRFrench.Graphing",
+    "name": "TravisRFrench.Graphing.Runtime",
+    "rootNamespace": "TravisRFrench.Graphing.Runtime",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
