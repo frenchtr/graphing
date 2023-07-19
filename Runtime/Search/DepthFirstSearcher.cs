@@ -1,44 +1,45 @@
 using System.Collections.Generic;
 using System.Linq;
-using TravisRFrench.Graphing.Graphs;
-using TravisRFrench.Graphing.Nodes;
+using TravisRFrench.Graphing.Runtime.Graphs;
+using TravisRFrench.Graphing.Runtime.Nodes;
 
-namespace DemoCode.Runtime.Search;
-
-public class DepthFirstSearcher : IGraphSearcher
+namespace TravisRFrench.Graphing.Runtime.Search
 {
-    public IEnumerable<INode<TValue>> Search<TValue>(IGraph<TValue> graph, INode<TValue> startNode)
+    public class DepthFirstSearcher : IGraphSearcher
     {
-        var stack = new Stack<INode<TValue>>();
-        var visited = new List<INode<TValue>>();
-        
-        stack.Push(startNode);
-
-        while (stack.Any())
+        public IEnumerable<INode<TValue>> Search<TValue>(IGraph<TValue> graph, INode<TValue> startNode)
         {
-            var current = stack.Pop();
+            var stack = new Stack<INode<TValue>>();
+            var visited = new List<INode<TValue>>();
             
-            visited.Add(current);
+            stack.Push(startNode);
 
-            var neighbors = current.GetNeighbors();
-            foreach (var neighbor in neighbors)
+            while (stack.Any())
             {
-                // Skip this neighbor if it's already in the visited list
-                if (visited.Any(n => n == neighbor))
+                var current = stack.Pop();
+                
+                visited.Add(current);
+
+                var neighbors = current.GetNeighbors();
+                foreach (var neighbor in neighbors)
                 {
-                    continue;
+                    // Skip this neighbor if it's already in the visited list
+                    if (visited.Any(n => n == neighbor))
+                    {
+                        continue;
+                    }
+                    
+                    // Skip this neighbor if it's already queued
+                    if (stack.Any(n => n == neighbor))
+                    {
+                        continue;
+                    }
+
+                    stack.Push(neighbor);
                 }
                 
-                // Skip this neighbor if it's already queued
-                if (stack.Any(n => n == neighbor))
-                {
-                    continue;
-                }
-
-                stack.Push(neighbor);
+                yield return current;
             }
-            
-            yield return current;
         }
     }
 }

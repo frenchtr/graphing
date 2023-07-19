@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TravisRFrench.Graphing.Edges;
-using TravisRFrench.Graphing.Graphs;
+using TravisRFrench.Graphing.Runtime.Edges;
+using TravisRFrench.Graphing.Runtime.Graphs;
 
-namespace TravisRFrench.Graphing.Nodes
+namespace TravisRFrench.Graphing.Runtime.Nodes
 {
     [Serializable]
     public class Node<TValue> : INode<TValue>

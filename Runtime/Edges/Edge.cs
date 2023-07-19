@@ -1,8 +1,8 @@
 ﻿using System;
-using TravisRFrench.Graphing.Graphs;
-using TravisRFrench.Graphing.Nodes;
+using TravisRFrench.Graphing.Runtime.Graphs;
+using TravisRFrench.Graphing.Runtime.Nodes;
 
-namespace TravisRFrench.Graphing.Edges
+namespace TravisRFrench.Graphing.Runtime.Edges
 {
     [Serializable]
     public class Edge<TValue> : IEdge<TValue>

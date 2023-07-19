@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using TravisRFrench.Graphing.Edges;
-using TravisRFrench.Graphing.Nodes;
+using TravisRFrench.Graphing.Runtime.Edges;
+using TravisRFrench.Graphing.Runtime.Nodes;
 
-namespace TravisRFrench.Graphing.Graphs
+namespace TravisRFrench.Graphing.Runtime.Graphs
 {
     public static class GraphExtensions
     {

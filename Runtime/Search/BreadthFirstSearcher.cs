@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TravisRFrench.Graphing.Graphs;
-using TravisRFrench.Graphing.Nodes;
+using TravisRFrench.Graphing.Runtime.Graphs;
+using TravisRFrench.Graphing.Runtime.Nodes;
 
-namespace DemoCode.Runtime.Search;
+namespace TravisRFrench.Graphing.Runtime.Search;
 
 public class BreadthFirstSearcher : IGraphSearcher
 {

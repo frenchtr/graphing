@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using TravisRFrench.Graphing.Edges;
-using TravisRFrench.Graphing.Graphs;
+using TravisRFrench.Graphing.Runtime.Edges;
+using TravisRFrench.Graphing.Runtime.Graphs;
 
-namespace TravisRFrench.Graphing.Nodes
+namespace TravisRFrench.Graphing.Runtime.Nodes
 {
     public interface INode<TValue>
     {

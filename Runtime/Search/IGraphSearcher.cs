@@ -1,4 +1,11 @@
-public interface IGraphSearcher
+using System.Collections.Generic;
+using TravisRFrench.Graphing.Runtime.Graphs;
+using TravisRFrench.Graphing.Runtime.Nodes;
+
+namespace TravisRFrench.Graphing.Runtime.Search
 {
-    IEnumerable<INode<TValue>> Search<TValue>(IGraph<TValue> graph, INode<TValue> startNode);
+    public interface IGraphSearcher
+    {
+        IEnumerable<INode<TValue>> Search<TValue>(IGraph<TValue> graph, INode<TValue> startNode);
+    }
 }
