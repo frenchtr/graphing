@@ -3,42 +3,43 @@ using System.Linq;
 using TravisRFrench.Graphing.Runtime.Graphs;
 using TravisRFrench.Graphing.Runtime.Nodes;
 
-namespace TravisRFrench.Graphing.Runtime.Search;
-
-public class BreadthFirstSearcher : IGraphSearcher
+namespace TravisRFrench.Graphing.Runtime.Search
 {
-    public IEnumerable<INode<TValue>> Search<TValue>(IGraph<TValue> graph, INode<TValue> startNode)
+    public class BreadthFirstSearcher : IGraphSearcher
     {
-        var queue = new Queue<INode<TValue>>();
-        var visited = new List<INode<TValue>>();
-        
-        queue.Enqueue(startNode);
-
-        while (queue.Any())
+        public IEnumerable<INode<TValue>> Search<TValue>(IGraph<TValue> graph, INode<TValue> startNode)
         {
-            var current = queue.Dequeue();
+            var queue = new Queue<INode<TValue>>();
+            var visited = new List<INode<TValue>>();
             
-            visited.Add(current);
+            queue.Enqueue(startNode);
 
-            var neighbors = current.GetNeighbors();
-            foreach (var neighbor in neighbors)
+            while (queue.Any())
             {
-                // Skip this neighbor if it's already in the visited list
-                if (visited.Any(n => n == neighbor))
+                var current = queue.Dequeue();
+                
+                visited.Add(current);
+
+                var neighbors = current.GetNeighbors();
+                foreach (var neighbor in neighbors)
                 {
-                    continue;
+                    // Skip this neighbor if it's already in the visited list
+                    if (visited.Any(n => n == neighbor))
+                    {
+                        continue;
+                    }
+                    
+                    // Skip this neighbor if it's already queued
+                    if (queue.Any(n => n == neighbor))
+                    {
+                        continue;
+                    }
+
+                    queue.Enqueue(neighbor);
                 }
                 
-                // Skip this neighbor if it's already queued
-                if (queue.Any(n => n == neighbor))
-                {
-                    continue;
-                }
-
-                queue.Enqueue(neighbor);
+                yield return current;
             }
-            
-            yield return current;
         }
     }
 }
