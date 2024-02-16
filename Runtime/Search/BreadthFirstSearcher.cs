@@ -5,8 +5,19 @@ using TravisRFrench.Graphing.Runtime.Nodes;
 
 namespace TravisRFrench.Graphing.Runtime.Search
 {
+    /// <summary>
+    /// Represents a breadth-first graph search algorithm.
+    /// </summary>
+    /// <typeparam name="TNodeValue">The type of value stored in the graph's nodes.</typeparam>
+    /// <typeparam name="TEdgeValue">The type of value associated with edges in the graph.</typeparam>
     public class BreadthFirstSearcher<TNodeValue, TEdgeValue> : IGraphSearcher<TNodeValue, TEdgeValue>
     {
+        /// <summary>
+        /// Conducts a breadth-first search within the specified graph starting from the given node.
+        /// </summary>
+        /// <param name="graph">The graph in which the search operation will be performed.</param>
+        /// <param name="startNode">The node from which the search will begin.</param>
+        /// <returns>An enumerable collection of nodes traversed during the search operation.</returns>
         public IEnumerable<INode<TNodeValue, TEdgeValue>> Search(IGraph<TNodeValue, TEdgeValue> graph, INode<TNodeValue, TEdgeValue> startNode)
         {
             var queue = new Queue<INode<TNodeValue, TEdgeValue>>();
