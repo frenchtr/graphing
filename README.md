@@ -25,6 +25,8 @@ To install this Graphing Library in your Unity project, follow these steps:
 
 ## Usage
 
+### Building a graph
+
 After installation, the Graphing Library can be used within your Unity scripts. Start by adding the necessary `using` statements at the top of your script files:
 
 ```csharp
@@ -37,14 +39,29 @@ using TravisRFrench.Graphing.Runtime.Search;
 To create a graph, add nodes and edges, and execute a breadth-first search, you can use the following example as a guide:
 
 ```csharp
-var graph = new DirectedGraph<int, string>();
-var nodeA = graph.AddNode(1);
+var graph = new DirectedGraph<string, int>();
+var nodeA = graph.AddNode("Washington");
+var nodeB = graph.AddNode("Oregon");
+var edge = graph.AddEdge(nodeA, nodeB, 1);
 // Continue adding nodes and edges as required
 ```
 
 This library aims to provide a straightforward and powerful tool for graph operations within Unity, enhancing game development and other graph-based applications.
 
-### Running tests
+### Searching a graph
+
+To search an existing graph, create a searcher and enumerate through the `Search()` method return value as you would with any other collection.
+
+```csharp
+var searcher = new BreadthFirstSearcher();
+
+foreach (var node in searcher.Search())
+{
+    // Do something with the node
+}
+```
+
+## Running tests
 This package includes unit tests to ensure the reliability of its core functionalities. To run the tests:
 
 Open the Unity Test Runner via `Window` `->` `General` `->` `Test Runner`.
