@@ -6,8 +6,14 @@ using TravisRFrench.Graphing.Runtime.Nodes;
 
 namespace TravisRFrench.Graphing.Tests.EditMode
 {
+    /// <summary>
+    /// Contains unit tests for the functionalities specific to undirected graphs.
+    /// </summary>
     public class UndirectedGraphTests : GraphTests
     {
+        /// <summary>
+        /// Verifies that when adding an edge to an undirected graph, the edge should be bidirectional.
+        /// </summary>
         [Test]
         public void GivenUndirectedGraph_WhenAddingEdge_ThenEdgeShouldBeBidirectional()
         {
@@ -28,6 +34,12 @@ namespace TravisRFrench.Graphing.Tests.EditMode
             Assert.IsTrue(graph.Edges.Any(e => e.First == node2 && e.Second == node1), "The edge should also exist from node2 to node1, reflecting bidirectionality.");
         }
         
+        /// <summary>
+        /// Creates an instance of an undirected graph for testing purposes.
+        /// </summary>
+        /// <typeparam name="TNodeValue">The type of value stored in the graph's nodes.</typeparam>
+        /// <typeparam name="TEdgeValue">The type of value associated with edges in the graph.</typeparam>
+        /// <returns>An instance of an undirected graph.</returns>
         protected override IGraph<TNodeValue, TEdgeValue> CreateGraph<TNodeValue, TEdgeValue>()
         {
             return new UndirectedGraph<TNodeValue, TEdgeValue>();

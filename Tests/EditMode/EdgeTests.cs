@@ -5,6 +5,9 @@ using TravisRFrench.Graphing.Runtime.Nodes;
 
 namespace TravisRFrench.Graphing.Tests.EditMode
 {
+    /// <summary>
+    /// Contains unit tests for the <see cref="Edge{TNodeValue, TEdgeValue}"/> class.
+    /// </summary>
     [TestFixture]
     public class EdgeTests
     {
@@ -12,6 +15,9 @@ namespace TravisRFrench.Graphing.Tests.EditMode
         private INode<string, int> firstNode;
         private INode<string, int> secondNode;
         
+        /// <summary>
+        /// Sets up the test environment by creating a directed graph and two nodes.
+        /// </summary>
         [SetUp]
         public void SetUp()
         {
@@ -20,6 +26,9 @@ namespace TravisRFrench.Graphing.Tests.EditMode
             this.secondNode = new Node<string, int>(this.graph, "Second");
         }
 
+        /// <summary>
+        /// Verifies that an edge correctly references the graph and nodes it belongs to upon creation.
+        /// </summary>
         [Test]
         public void GivenEdge_WhenCreated_ShouldCorrectlyReferenceGraphAndNodes()
         {
@@ -35,6 +44,9 @@ namespace TravisRFrench.Graphing.Tests.EditMode
             Assert.AreEqual(100, edge.Value, "Edge should hold the correct value.");
         }
 
+        /// <summary>
+        /// Verifies that an edge reflects the new value when it is set.
+        /// </summary>
         [Test]
         public void GivenEdge_WhenValueIsSet_ShouldReflectNewValue()
         {
@@ -49,6 +61,9 @@ namespace TravisRFrench.Graphing.Tests.EditMode
             Assert.AreEqual(newValue, edge.Value, "Edge's value should be updated to the new value.");
         }
 
+        /// <summary>
+        /// Verifies that two edges created in sequence have unique IDs.
+        /// </summary>
         [Test]
         public void GivenTwoEdges_WhenCreated_ShouldHaveUniqueIds()
         {

@@ -7,8 +7,14 @@ using TravisRFrench.Graphing.Runtime.Graphs;
 
 namespace TravisRFrench.Graphing.Tests.EditMode
 {
+    /// <summary>
+    /// Contains unit tests for graph-related functionalities.
+    /// </summary>
     public abstract class GraphTests
     {
+        /// <summary>
+        /// Verifies that a node is present in the graph after being added.
+        /// </summary>
         [Test]
         public void GivenGraph_WhenAddingNode_ThenNodeShouldBePresent()
         {
@@ -23,6 +29,9 @@ namespace TravisRFrench.Graphing.Tests.EditMode
             Assert.Contains(node, graph.Nodes.ToList());
         }
 
+        /// <summary>
+        /// Verifies that a node is not present in the graph after being removed.
+        /// </summary>
         [Test]
         public void GivenGraphWithNode_WhenRemovingNode_ThenNodeShouldNotBePresent()
         {
@@ -38,6 +47,9 @@ namespace TravisRFrench.Graphing.Tests.EditMode
             Assert.IsFalse(graph.Nodes.Contains(node));
         }
 
+        /// <summary>
+        /// Verifies that an edge is present in the graph after being added between two nodes.
+        /// </summary>
         [Test]
         public void GivenGraphWithTwoNodes_WhenAddingEdgeBetweenNodes_ThenEdgeShouldBePresent()
         {
@@ -54,6 +66,9 @@ namespace TravisRFrench.Graphing.Tests.EditMode
             Assert.Contains(edge, graph.Edges.ToList());
         }
 
+        /// <summary>
+        /// Verifies that an edge is not present in the graph after being removed.
+        /// </summary>
         [Test]
         public void GivenGraphWithAnEdge_WhenRemovingEdge_ThenEdgeShouldNotBePresent()
         {
@@ -71,6 +86,9 @@ namespace TravisRFrench.Graphing.Tests.EditMode
             Assert.IsFalse(graph.Edges.Contains(edge));
         }
         
+        /// <summary>
+        /// Verifies that a graph has empty nodes and edges collections upon initialization.
+        /// </summary>
         [Test]
         public void GivenGraph_WhenInitialized_ShouldHaveEmptyNodesAndEdges()
         {
@@ -85,6 +103,9 @@ namespace TravisRFrench.Graphing.Tests.EditMode
             Assert.IsEmpty(graph.Edges, "Edges collection should be empty upon initialization.");
         }
         
+        /// <summary>
+        /// Verifies that a graph has a unique ID upon initialization.
+        /// </summary>
         [Test]
         public void GivenGraph_WhenInitialized_ShouldHaveUniqueID()
         {
@@ -95,6 +116,12 @@ namespace TravisRFrench.Graphing.Tests.EditMode
             Assert.AreNotEqual(Guid.Empty, graph.ID, "Graph should have a unique ID upon initialization.");
         }
 
+        /// <summary>
+        /// Creates a graph instance.
+        /// </summary>
+        /// <typeparam name="TNodeValue">The type of value stored in the graph's nodes.</typeparam>
+        /// <typeparam name="TEdgeValue">The type of value associated with edges in the graph.</typeparam>
+        /// <returns>The created graph instance.</returns>
         protected abstract IGraph<TNodeValue, TEdgeValue> CreateGraph<TNodeValue, TEdgeValue>();
     }
 }

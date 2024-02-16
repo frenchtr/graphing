@@ -6,6 +6,9 @@ using TravisRFrench.Graphing.Runtime.Graphs;
 
 namespace TravisRFrench.Graphing.Tests.EditMode
 {
+    /// <summary>
+    /// Contains unit tests for node-related functionalities.
+    /// </summary>
     [TestFixture]
     public class NodeTests
     {
@@ -13,6 +16,9 @@ namespace TravisRFrench.Graphing.Tests.EditMode
         private Node<string, int> node1;
         private Node<string, int> node2;
         
+        /// <summary>
+        /// Setup method to initialize the graph, nodes, and edges before each test.
+        /// </summary>
         [SetUp]
         public void SetUp()
         {
@@ -25,6 +31,9 @@ namespace TravisRFrench.Graphing.Tests.EditMode
             this.graph.AddNode(this.node2);
         }
 
+        /// <summary>
+        /// Verifies that adding an edge between two nodes establishes the connection.
+        /// </summary>
         [Test]
         public void AddEdge_ShouldLinkTwoNodes()
         {
@@ -39,6 +48,9 @@ namespace TravisRFrench.Graphing.Tests.EditMode
             Assert.Contains(this.node2, this.node1.GetNeighbors().ToList());
         }
 
+        /// <summary>
+        /// Verifies that removing an edge between two nodes breaks the connection.
+        /// </summary>
         [Test]
         public void RemoveEdge_ShouldUnlinkTwoNodes()
         {

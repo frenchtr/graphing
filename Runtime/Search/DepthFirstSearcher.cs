@@ -12,6 +12,13 @@ namespace TravisRFrench.Graphing.Runtime.Search
     /// <typeparam name="TEdgeValue">The type of value associated with edges in the graph.</typeparam>
     public class DepthFirstSearcher<TNodeValue, TEdgeValue> : IGraphSearcher<TNodeValue, TEdgeValue>
     {
+        private readonly IComparer<INode<TNodeValue, TEdgeValue>> comparer;
+
+        public DepthFirstSearcher(IComparer<INode<TNodeValue, TEdgeValue>> comparer = null)
+        {
+            this.comparer = comparer ?? new DefaultNodeComparer<TNodeValue, TEdgeValue>();
+        }
+        
         /// <summary>
         /// Conducts a depth-first search within the specified graph starting from the given node.
         /// </summary>
@@ -32,7 +39,14 @@ namespace TravisRFrench.Graphing.Runtime.Search
 
                 yield return current;
 
-                var neighbors = current.GetNeighbors().Where(n => !visited.Contains(n)).ToList();
+                var neighbors = current.GetNeighbors()
+                    .Where(n => !visited.Contains(n)).ToList();
+
+                if (this.comparer != null)
+                {
+                    neighbors.Sort(this.comparer);
+                }
+
                 foreach (var neighbor in neighbors)
                 {
                     if (!visited.Contains(neighbor))
