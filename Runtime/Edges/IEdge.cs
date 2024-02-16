@@ -4,12 +4,12 @@ using TravisRFrench.Graphing.Runtime.Nodes;
 
 namespace TravisRFrench.Graphing.Runtime.Edges
 {
-    public interface IEdge<TValue> 
+    public interface IEdge<TNodeValue, TEdgeValue>
     {
         Guid ID { get; }
-        IGraph<TValue> Graph { get; }
-        INode<TValue> First { get; }
-        INode<TValue> Second { get; }
-        float Weight { get; set; }
+        IGraph<TNodeValue, TEdgeValue> Graph { get; }
+        INode<TNodeValue, TEdgeValue> First { get; }
+        INode<TNodeValue, TEdgeValue> Second { get; }
+        TEdgeValue Value { get; set; }
     }
 }

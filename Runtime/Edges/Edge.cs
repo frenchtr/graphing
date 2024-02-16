@@ -5,30 +5,30 @@ using TravisRFrench.Graphing.Runtime.Nodes;
 namespace TravisRFrench.Graphing.Runtime.Edges
 {
     [Serializable]
-    public class Edge<TValue> : IEdge<TValue>
+    public class Edge<TNodeValue, TEdgeValue> : IEdge<TNodeValue, TEdgeValue>
     {
         public Guid ID { get; }
-        public IGraph<TValue> Graph { get; }
-        public INode<TValue> First { get; }
-        public INode<TValue> Second { get; }
-        public float Weight { get; set; }
+        public IGraph<TNodeValue, TEdgeValue> Graph { get; }
+        public INode<TNodeValue, TEdgeValue> First { get; }
+        public INode<TNodeValue, TEdgeValue> Second { get; }
+        public TEdgeValue Value { get; set; }
 
-        public Edge(Guid id, IGraph<TValue> graph, INode<TValue> source, INode<TValue> destination, float weight = default)
+        public Edge(Guid id, IGraph<TNodeValue, TEdgeValue> graph, INode<TNodeValue, TEdgeValue> first, INode<TNodeValue, TEdgeValue> second, TEdgeValue value = default)
         {
-            if (source.Graph != graph || destination.Graph != graph)
+            if (first.Graph != graph || second.Graph != graph)
             {
                 throw new InvalidOperationException($"Cannot create edge between nodes on differing graphs.");
             }
 
             this.ID = id;
             this.Graph = graph;
-            this.First = source;
-            this.Second = destination;
-            this.Weight = weight;
+            this.First = first;
+            this.Second = second;
+            this.Value = value;
         }
 
-        public Edge(IGraph<TValue> graph, INode<TValue> source, INode<TValue> destination, float weight = default)
-            : this(Guid.NewGuid(), graph, source, destination, weight)
+        public Edge(IGraph<TNodeValue, TEdgeValue> graph, INode<TNodeValue, TEdgeValue> first, INode<TNodeValue, TEdgeValue> second, TEdgeValue value = default)
+            : this(Guid.NewGuid(), graph, first, second, value)
         {
         }
     }

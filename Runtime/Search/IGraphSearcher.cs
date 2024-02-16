@@ -4,8 +4,8 @@ using TravisRFrench.Graphing.Runtime.Nodes;
 
 namespace TravisRFrench.Graphing.Runtime.Search
 {
-    public interface IGraphSearcher
+    public interface IGraphSearcher<TNodeValue, TEdgeValue>
     {
-        IEnumerable<INode<TValue>> Search<TValue>(IGraph<TValue> graph, INode<TValue> startNode);
+        IEnumerable<INode<TNodeValue, TEdgeValue>> Search(IGraph<TNodeValue, TEdgeValue> graph, INode<TNodeValue, TEdgeValue> startNode);
     }
 }

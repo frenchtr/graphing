@@ -5,40 +5,30 @@ using TravisRFrench.Graphing.Runtime.Nodes;
 
 namespace TravisRFrench.Graphing.Runtime.Search
 {
-    public class BreadthFirstSearcher : IGraphSearcher
+    public class BreadthFirstSearcher<TNodeValue, TEdgeValue> : IGraphSearcher<TNodeValue, TEdgeValue>
     {
-        public IEnumerable<INode<TValue>> Search<TValue>(IGraph<TValue> graph, INode<TValue> startNode)
+        public IEnumerable<INode<TNodeValue, TEdgeValue>> Search(IGraph<TNodeValue, TEdgeValue> graph, INode<TNodeValue, TEdgeValue> startNode)
         {
-            var queue = new Queue<INode<TValue>>();
-            var visited = new List<INode<TValue>>();
-            
+            var queue = new Queue<INode<TNodeValue, TEdgeValue>>();
+            var visited = new HashSet<INode<TNodeValue, TEdgeValue>>();
+
             queue.Enqueue(startNode);
+            visited.Add(startNode);
 
             while (queue.Any())
             {
                 var current = queue.Dequeue();
-                
-                visited.Add(current);
+                yield return current;
 
                 var neighbors = current.GetNeighbors();
                 foreach (var neighbor in neighbors)
                 {
-                    // Skip this neighbor if it's already in the visited list
-                    if (visited.Any(n => n == neighbor))
+                    if (!visited.Contains(neighbor))
                     {
-                        continue;
+                        queue.Enqueue(neighbor);
+                        visited.Add(neighbor);
                     }
-                    
-                    // Skip this neighbor if it's already queued
-                    if (queue.Any(n => n == neighbor))
-                    {
-                        continue;
-                    }
-
-                    queue.Enqueue(neighbor);
                 }
-                
-                yield return current;
             }
         }
     }

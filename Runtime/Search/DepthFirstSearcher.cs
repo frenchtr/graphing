@@ -5,40 +5,31 @@ using TravisRFrench.Graphing.Runtime.Nodes;
 
 namespace TravisRFrench.Graphing.Runtime.Search
 {
-    public class DepthFirstSearcher : IGraphSearcher
+    public class DepthFirstSearcher<TNodeValue, TEdgeValue> : IGraphSearcher<TNodeValue, TEdgeValue>
     {
-        public IEnumerable<INode<TValue>> Search<TValue>(IGraph<TValue> graph, INode<TValue> startNode)
+        public IEnumerable<INode<TNodeValue, TEdgeValue>> Search(IGraph<TNodeValue, TEdgeValue> graph, INode<TNodeValue, TEdgeValue> startNode)
         {
-            var stack = new Stack<INode<TValue>>();
-            var visited = new List<INode<TValue>>();
+            var stack = new Stack<INode<TNodeValue, TEdgeValue>>();
+            var visited = new HashSet<INode<TNodeValue, TEdgeValue>>();
             
             stack.Push(startNode);
+            visited.Add(startNode);
 
             while (stack.Any())
             {
                 var current = stack.Pop();
                 
-                visited.Add(current);
+                yield return current;
 
-                var neighbors = current.GetNeighbors();
+                var neighbors = current.GetNeighbors().Where(n => !visited.Contains(n)).ToList();
                 foreach (var neighbor in neighbors)
                 {
-                    // Skip this neighbor if it's already in the visited list
-                    if (visited.Any(n => n == neighbor))
+                    if (!visited.Contains(neighbor))
                     {
-                        continue;
+                        stack.Push(neighbor);
+                        visited.Add(neighbor);
                     }
-                    
-                    // Skip this neighbor if it's already queued
-                    if (stack.Any(n => n == neighbor))
-                    {
-                        continue;
-                    }
-
-                    stack.Push(neighbor);
                 }
-                
-                yield return current;
             }
         }
     }

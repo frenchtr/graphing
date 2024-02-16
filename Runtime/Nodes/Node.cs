@@ -7,60 +7,51 @@ using TravisRFrench.Graphing.Runtime.Graphs;
 namespace TravisRFrench.Graphing.Runtime.Nodes
 {
     [Serializable]
-    public class Node<TValue> : INode<TValue>
+    // Updated to include TEdgeValue, making the Node class dual-generic.
+    public class Node<TNodeValue, TEdgeValue> : INode<TNodeValue, TEdgeValue>
     {
         public Guid ID { get; }
-        public IGraph<TValue> Graph { get; }
-        public TValue Value { get; set; }
-        public IEnumerable<IEdge<TValue>> Edges => this.Graph.Edges.Where(edge => edge.First == this);
+        // Graph now also generic over TNodeValue and TEdgeValue.
+        public IGraph<TNodeValue, TEdgeValue> Graph { get; }
+        public TNodeValue Value { get; set; }
+        // Edges now filtered by the updated interface type, reflecting dual-generic parameters.
+        public IEnumerable<IEdge<TNodeValue, TEdgeValue>> Edges => this.Graph.Edges.Where(edge => edge.First == this || edge.Second == this);
 
-        public Node(Guid id, IGraph<TValue> graph, TValue value = default)
+        public Node(Guid id, IGraph<TNodeValue, TEdgeValue> graph, TNodeValue value = default)
         {
             this.ID = id;
             this.Graph = graph;
             this.Value = value;
         }
 
-        public Node(IGraph<TValue> graph, TValue value = default)
+        public Node(IGraph<TNodeValue, TEdgeValue> graph, TNodeValue value = default)
             : this(Guid.NewGuid(), graph, value)
         {
         }
-        
-        public void AddNeighbor(INode<TValue> neighbor, float weight = default)
-        {
-            this.Graph.AddEdge(this, neighbor, weight);
-        }
 
-        public void RemoveNeighbor(INode<TValue> neighbor)
-        {
-            this.Graph.RemoveEdge(this, neighbor);
-        }
-
-        public void AddEdge(IEdge<TValue> edge)
+        // Adjusted to include TEdgeValue in the AddEdge and RemoveEdge methods.
+        public void AddEdge(IEdge<TNodeValue, TEdgeValue> edge)
         {
             this.Graph.AddEdge(edge);
         }
 
-        public void RemoveEdge(IEdge<TValue> edge)
+        public void RemoveEdge(IEdge<TNodeValue, TEdgeValue> edge)
         {
             this.Graph.RemoveEdge(edge);
         }
 
-        public IEnumerable<INode<TValue>> GetNeighbors()
+        // Returns neighbors, ensuring the correct edge type is used.
+        public IEnumerable<INode<TNodeValue, TEdgeValue>> GetNeighbors()
         {
-            var edges = this.Edges.Where(e => e.First == this || e.Second == this);
-            var neighbors = new List<INode<TValue>>();
+            var neighbors = new List<INode<TNodeValue, TEdgeValue>>();
 
-            foreach (var edge in edges)
+            foreach (var edge in this.Edges)
             {
-                var neighbor = edge.First == this ? edge.Second : edge.First;
-
-                if (neighbors.Any(n => n == neighbor))
+                INode<TNodeValue, TEdgeValue> neighbor = edge.First.Equals(this) ? edge.Second : edge.First;
+                if (!neighbors.Contains(neighbor))
                 {
-                    continue;
+                    neighbors.Add(neighbor);
                 }
-                
-                neighbors.Add(neighbor);
             }
 
             return neighbors;

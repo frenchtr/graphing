@@ -5,17 +5,15 @@ using TravisRFrench.Graphing.Runtime.Graphs;
 
 namespace TravisRFrench.Graphing.Runtime.Nodes
 {
-    public interface INode<TValue>
+    public interface INode<TNodeValue, TEdgeValue>
     {
         Guid ID { get; }
-        IGraph<TValue> Graph { get; }
-        TValue Value { get; set; }
-        IEnumerable<IEdge<TValue>> Edges { get; }
+        IGraph<TNodeValue, TEdgeValue> Graph { get; }
+        TNodeValue Value { get; set; }
+        IEnumerable<IEdge<TNodeValue, TEdgeValue>> Edges { get; }
         
-        void AddEdge(IEdge<TValue> edge);
-        void RemoveEdge(IEdge<TValue> edge);
-        IEnumerable<INode<TValue>> GetNeighbors();
-        void AddNeighbor(INode<TValue> neighbor, float weight = default);
-        void RemoveNeighbor(INode<TValue> neighbor);
+        void AddEdge(IEdge<TNodeValue, TEdgeValue> edge);
+        void RemoveEdge(IEdge<TNodeValue, TEdgeValue> edge);
+        IEnumerable<INode<TNodeValue, TEdgeValue>> GetNeighbors();
     }
 }
